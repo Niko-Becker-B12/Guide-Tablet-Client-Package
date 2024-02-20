@@ -1,0 +1,24 @@
+{
+    "name": "com.b12.vrguideclient",
+    "version": "0.0.1-Pre-Release",
+    "displayName": "VR-Guide Tablet - Client",
+    "description": "",
+    "type": "tool",
+    "unity": "2020.3",
+    "hideInEditor": false,
+    "documentationUrl": "https=//github.com/Niko-Becker-B12/B12-Showroom-System-Documentation/wiki/Documentation",
+    "changelogUrl": "",
+    "licensesUrl": "",
+    "keywords": [
+        "VR",
+        "Studio-B12",
+        "B12",
+        "Tablet",
+        "Guide"
+    ],
+    "author": {
+        "name": "Studio B12 | Niko Becker",
+        "email": "n.becker@b12-gruppe.de",
+        "url": ""
+    }
+}

@@ -7,71 +7,76 @@ using Sirenix.OdinInspector;
 using FMETP;
 using static FMETP.FMNetworkManager;
 
-public class ClientSetUpEditorWindow : OdinEditorWindow
+namespace GuideTabletClient
 {
 
-    [SceneObjectsOnly]
-    [HorizontalGroup("SplitH1")]
-    public Camera playerCamera;
-
-    [SceneObjectsOnly]
-    [HorizontalGroup("SplitH2")]
-    public GameObject playerParentObject;
-
-
-    [MenuItem("Tools/VR-Guide Tablet/Set-Up/Client")]
-    private static void OpenWindow()
+    public class ClientSetUpEditorWindow : OdinEditorWindow
     {
 
-        GetWindow<ClientSetUpEditorWindow>().Show();
+        [SceneObjectsOnly]
+        [HorizontalGroup("SplitH1")]
+        public Camera playerCamera;
 
-    }
+        [SceneObjectsOnly]
+        [HorizontalGroup("SplitH2")]
+        public GameObject playerParentObject;
 
-    [HorizontalGroup("SplitH1")]
-    [Button("Get Main Camera")]
-    public void GetMainCam()
-    {
 
-        playerCamera = Camera.main;
+        [MenuItem("Tools/VR-Guide Tablet/Set-Up/Client")]
+        private static void OpenWindow()
+        {
 
-    }
+            GetWindow<ClientSetUpEditorWindow>().Show();
 
-    [Button()]
-    public void SetUpClient()
-    {
+        }
 
-        if (playerCamera == null || playerParentObject == null)
-            return;
+        [HorizontalGroup("SplitH1")]
+        [Button("Get Main Camera")]
+        public void GetMainCam()
+        {
 
-        FMNetworkManager fMNetworkManager = playerParentObject.AddComponent<FMNetworkManager>();
-        GameViewEncoder encoder = playerParentObject.AddComponent<GameViewEncoder>();
-        GuideTabletClient client = playerParentObject.AddComponent<GuideTabletClient>();
+            playerCamera = Camera.main;
 
-        fMNetworkManager.AutoInit = true;
-        fMNetworkManager.NetworkType = FMNetworkType.Client;
+        }
 
-        FMClientSettings newSettings = new FMClientSettings();
+        [Button()]
+        public void SetUpClient()
+        {
 
-        newSettings.ClientListenPort = 3334;
-        newSettings.UseMainThreadSender = false;
-        newSettings.AutoNetworkDiscovery = true;
+            if (playerCamera == null || playerParentObject == null)
+                return;
 
-        fMNetworkManager.ClientSettings = newSettings;
+            FMNetworkManager fMNetworkManager = playerParentObject.AddComponent<FMNetworkManager>();
+            GameViewEncoder encoder = playerParentObject.AddComponent<GameViewEncoder>();
+            GuideTabletClient client = playerParentObject.AddComponent<GuideTabletClient>();
 
-        encoder.CaptureMode = GameViewCaptureMode.RenderCam;
-        encoder.RenderCam = playerCamera;
-        encoder.Resolution = new Vector2(512, 256);
-        encoder.MatchScreenAspect = true;
-        encoder.Quality = 25;
-        encoder.StreamFPS = 24;
-        encoder.GZipMode = true;
-        encoder.OutputFormat = GameViewOutputFormat.FMMJPEG;
-        encoder.OutputAsChunks = true;
-        encoder.OnDataByteReadyEvent.AddListener(fMNetworkManager.SendToServer);
-        encoder.FastMode = true;
-        encoder.AsyncMode = true;
-        encoder.EnableAsyncGPUReadback = true;
-        encoder.ChromaSubsampling = FMChromaSubsamplingOption.Subsampling420;
+            fMNetworkManager.AutoInit = true;
+            fMNetworkManager.NetworkType = FMNetworkType.Client;
+
+            FMClientSettings newSettings = new FMClientSettings();
+
+            newSettings.ClientListenPort = 3334;
+            newSettings.UseMainThreadSender = false;
+            newSettings.AutoNetworkDiscovery = true;
+
+            fMNetworkManager.ClientSettings = newSettings;
+
+            encoder.CaptureMode = GameViewCaptureMode.RenderCam;
+            encoder.RenderCam = playerCamera;
+            encoder.Resolution = new Vector2(512, 256);
+            encoder.MatchScreenAspect = true;
+            encoder.Quality = 25;
+            encoder.StreamFPS = 24;
+            encoder.GZipMode = true;
+            encoder.OutputFormat = GameViewOutputFormat.FMMJPEG;
+            encoder.OutputAsChunks = true;
+            encoder.OnDataByteReadyEvent.AddListener(fMNetworkManager.SendToServer);
+            encoder.FastMode = true;
+            encoder.AsyncMode = true;
+            encoder.EnableAsyncGPUReadback = true;
+            encoder.ChromaSubsampling = FMChromaSubsamplingOption.Subsampling420;
+
+        }
 
     }
 

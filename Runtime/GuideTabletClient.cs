@@ -10,7 +10,7 @@ using UnityEngine.Events;
 public class GuideTabletClient : MonoBehaviour
 {
 
-    public int playerID;
+    public static int playerID;
 
     public string customID;
 
@@ -68,7 +68,7 @@ public class GuideTabletClient : MonoBehaviour
     }
 
     [Button]
-    public void SendMessageToServer(string message)
+    public static void SendMessageToServer(string message)
     {
         //String Format: "COMMAND_ToServer_{playerID}_{message}"
         //Invoke this, if a Player starts/finishes a Level or the CustomID changes

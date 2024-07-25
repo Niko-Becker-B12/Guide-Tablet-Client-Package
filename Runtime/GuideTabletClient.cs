@@ -13,7 +13,7 @@ namespace GuideTabletClient
     public class GuideTabletClient : MonoBehaviour
     {
 
-        public static int playerID;
+        public int playerID;
 
         public string customID;
 
@@ -21,7 +21,7 @@ namespace GuideTabletClient
 
         public TextMeshProUGUI text;
 
-        public UnityEvent<string> OnEventCallReceived;
+        public event Action<string> OnEventCallReceived;
 
 
         public void SetNewPlayerID(string newID)
@@ -66,12 +66,22 @@ namespace GuideTabletClient
 
                 }
 
+                if (message.Contains("Note"))
+                {
+
+                    string[] s = message.Split('(');
+                    s[1] = s[1].Replace(")", "");
+
+                    OnEventCallReceived.Invoke(s[1]);
+
+                }
+
             }
 
         }
 
         [Button]
-        public static void SendMessageToServer(string message)
+        public void SendMessageToServer(string message)
         {
             //String Format: "COMMAND_ToServer_{playerID}_{message}"
             //Invoke this, if a Player starts/finishes a Level or the CustomID changes

@@ -1,6 +1,6 @@
 {
     "name": "GuideTabletClient",
-    "rootNamespace": "",
+    "rootNamespace": "GuideTabletClient",
     "references": [
         "Unity.TextMeshPro",
         "FMETP"
